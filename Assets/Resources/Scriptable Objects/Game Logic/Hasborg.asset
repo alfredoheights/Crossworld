@@ -1,0 +1,93 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f0e5106aaf1409d8c7508001ea3cbf8, type: 3}
+  m_Name: Hasborg
+  m_EditorClassIdentifier: 
+  pieces:
+  - letter: 65
+    value: 1
+    count: 9
+  - letter: 66
+    value: 3
+    count: 2
+  - letter: 67
+    value: 3
+    count: 2
+  - letter: 68
+    value: 2
+    count: 4
+  - letter: 69
+    value: 1
+    count: 12
+  - letter: 70
+    value: 4
+    count: 2
+  - letter: 71
+    value: 3
+    count: 2
+  - letter: 72
+    value: 4
+    count: 2
+  - letter: 73
+    value: 1
+    count: 9
+  - letter: 74
+    value: 8
+    count: 1
+  - letter: 75
+    value: 5
+    count: 1
+  - letter: 76
+    value: 1
+    count: 4
+  - letter: 77
+    value: 3
+    count: 2
+  - letter: 78
+    value: 1
+    count: 6
+  - letter: 79
+    value: 1
+    count: 8
+  - letter: 80
+    value: 3
+    count: 2
+  - letter: 81
+    value: 10
+    count: 1
+  - letter: 82
+    value: 1
+    count: 6
+  - letter: 83
+    value: 1
+    count: 4
+  - letter: 84
+    value: 1
+    count: 6
+  - letter: 85
+    value: 1
+    count: 4
+  - letter: 86
+    value: 4
+    count: 2
+  - letter: 87
+    value: 4
+    count: 2
+  - letter: 88
+    value: 8
+    count: 1
+  - letter: 89
+    value: 4
+    count: 2
+  - letter: 90
+    value: 10
+    count: 1
