@@ -2,34 +2,43 @@
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using Xyz.MomsSpaghettiCode.UI.ScriptableObjects;
 
 namespace Xyz.MomsSpaghettiCode.UI
 {
-    public class DroppableSpace : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler
+    public class DroppableSpace : 
+        MonoBehaviour,
+        IDropHandler,
+        IPointerEnterHandler,
+        IPointerExitHandler
     {
-        [SerializeField] private PiecePickupEventScriptableObject piecePickupEventScriptableObject;
+        [FormerlySerializedAs("piecePickupEventScriptableObject")] 
+        [SerializeField] protected PieceDragEventScriptableObject pieceDragEventScriptableObject;
+
+        // Use this id to tell the game state about changes within events.
+        public int gameStateReferenceId;
 
         private void OnEnable()
         {
             // Subscribe to all piece pickup/drop events. The piece can change style
             // depending on the child
-            piecePickupEventScriptableObject.piecePickupEvent.AddListener(AnyPiecePickedUp);
-            piecePickupEventScriptableObject.pieceDropEvent.AddListener(AnyPieceDropped);
+            pieceDragEventScriptableObject.piecePickupEvent.AddListener(PiecePickedUp);
+            pieceDragEventScriptableObject.pieceDropEvent.AddListener(PieceDropped);
         }
 
         private void OnDisable()
         {
-            piecePickupEventScriptableObject.piecePickupEvent.RemoveListener(AnyPiecePickedUp);
-            piecePickupEventScriptableObject.pieceDropEvent.RemoveListener(AnyPieceDropped);
+            pieceDragEventScriptableObject.piecePickupEvent.RemoveListener(PiecePickedUp);
+            pieceDragEventScriptableObject.pieceDropEvent.RemoveListener(PieceDropped);
         }
 
-        protected virtual void AnyPiecePickedUp(DraggablePiece piece)
+        protected virtual void PiecePickedUp(DraggablePiece piece)
         {
             // 
         }
 
-        protected virtual void AnyPieceDropped(DraggablePiece piece)
+        protected virtual void PieceDropped(DraggablePiece piece)
         {
             //
         }
@@ -38,23 +47,34 @@ namespace Xyz.MomsSpaghettiCode.UI
         public virtual void OnDrop(PointerEventData eventData)
         {
             // If the dropped object is a DroppablePiece
+            Debug.Log("HI");
+        }
+
+        protected virtual void OnHoverEnter(PointerEventData eventData)
+        {
+            pieceDragEventScriptableObject.EnqueueParent(this);
+        }
+
+        protected virtual void OnHoverExit(PointerEventData eventData)
+        {
+            pieceDragEventScriptableObject.DequeueParent(this);
         }
 
         public virtual void OnPointerEnter(PointerEventData eventData)
         {
             // If there is a DraggablePiece being dragged above this when it's hovered, interact
-            if (piecePickupEventScriptableObject.pieceInMotion != null)
+            if (pieceDragEventScriptableObject.pieceInMotion != null)
             {
-                piecePickupEventScriptableObject.pieceInMotion.MeetYourFosterParents(transform);
+                OnHoverEnter(eventData);
             }
         }
 
         public virtual void OnPointerExit(PointerEventData eventData)
         {
             // If a DraggablePiece was dragged out, interact
-            if (piecePickupEventScriptableObject.pieceInMotion != null)
+            if (pieceDragEventScriptableObject.pieceInMotion != null)
             {
-                piecePickupEventScriptableObject.pieceInMotion.AccidentallyKillYourFosterParentsDog();
+                OnHoverExit(eventData);
             }
         }
     }

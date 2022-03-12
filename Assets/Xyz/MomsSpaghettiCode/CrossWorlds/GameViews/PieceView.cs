@@ -2,9 +2,12 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
+using Xyz.MomsSpaghettiCode.CrossWorlds.GameLogic.ScriptableObjects;
 using Xyz.MomsSpaghettiCode.CrossWorlds.GameViews.ScriptableObjects;
 using Xyz.MomsSpaghettiCode.UI;
+using Xyz.MomsSpaghettiCode.UI.Model;
 
 namespace Xyz.MomsSpaghettiCode.CrossWorlds.GameViews
 {
@@ -15,8 +18,12 @@ namespace Xyz.MomsSpaghettiCode.CrossWorlds.GameViews
         public Image side;
         public Image shadow;
         public TextMeshProUGUI letter;
+        public TextMeshProUGUI points;
 
-        public PieceViewScriptableObject pieceViewScriptableObject;
+        [FormerlySerializedAs("pieceViewScriptableObject")]
+        public PieceViewSettingsScriptableObject pieceViewSettingsScriptableObject;
+
+        public PlayerStateScriptableObject playerStateScriptableObject;
 
         private bool _isScaledUp = false;
 
@@ -26,15 +33,16 @@ namespace Xyz.MomsSpaghettiCode.CrossWorlds.GameViews
 
         private new void Awake()
         {
-            if (pieceViewScriptableObject == null)
+            if (pieceViewSettingsScriptableObject == null)
             {
                 throw new Exception("scriptable object not set for piece view");
             }
+            
+            playerStateScriptableObject.pieceMovedEvent.AddListener(PieceMovedEventResponse);
 
             base.Awake();
             _imagesCanvasGroup = top.gameObject.GetComponentInParent<CanvasGroup>();
         }
-
 
         #endregion
 
@@ -45,21 +53,23 @@ namespace Xyz.MomsSpaghettiCode.CrossWorlds.GameViews
             if (_isScaledUp) return;
             // Move and scale only the side, the shadow should stay where it is.
 
-            LeanTween.scale(top.rectTransform, pieceViewScriptableObject.dragScale, transitionDuration);
-            LeanTween.scale(side.rectTransform, pieceViewScriptableObject.dragScale, transitionDuration);
+            LeanTween.scale(top.rectTransform, pieceViewSettingsScriptableObject.dragScale, transitionDuration);
+            LeanTween.scale(side.rectTransform, pieceViewSettingsScriptableObject.dragScale, transitionDuration);
 
             LeanTween.moveLocal(
                 top.gameObject,
-                Vector3.up * 3 * pieceViewScriptableObject.dragScale.y + pieceViewScriptableObject.dragOffset,
+                Vector3.up * 3 * pieceViewSettingsScriptableObject.dragScale.y +
+                pieceViewSettingsScriptableObject.dragOffset,
                 transitionDuration
             );
             LeanTween.moveLocal(
                 side.gameObject,
-                Vector3.zero + pieceViewScriptableObject.dragOffset,
+                Vector3.zero + pieceViewSettingsScriptableObject.dragOffset,
                 transitionDuration
             );
 
-            LeanTween.alphaCanvas(_imagesCanvasGroup, pieceViewScriptableObject.dragOpacity, transitionDuration);
+            LeanTween.alphaCanvas(_imagesCanvasGroup, pieceViewSettingsScriptableObject.dragOpacity,
+                transitionDuration);
             _isScaledUp = true;
         }
 
@@ -118,6 +128,36 @@ namespace Xyz.MomsSpaghettiCode.CrossWorlds.GameViews
 
         #region Hover Events
 
+        #endregion
+
+        #region Game Piece Interactions
+
+        public void ChangeLetter(string newLetter)
+        {
+            letter.text = newLetter;
+        }
+
+        public void ChangePointValue(int newPointValue)
+        {
+            if (!Constants.numberDots.ContainsKey(newPointValue)) return;
+            points.text = Constants.numberDots[newPointValue];
+        }
+
+        public void SetPieceId(int newPieceId)
+        {
+            gameStateReferenceId = newPieceId;
+        }
+
+        #endregion
+        
+        #region Game State Events
+
+        public void PieceMovedEventResponse(GamePiece piece)
+        {
+            if (piece.Id != gameStateReferenceId) return;
+            Debug.Log($"This piece moved - {piece.Id}, {piece.Letter}");
+        }
+        
         #endregion
     }
 }

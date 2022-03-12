@@ -53,36 +53,36 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\External\LeanTween\Framework\LeanTween.cs" />
+     <Compile Include="Assets\External\LeanTween\Examples\Scripts\LogoCinematic.cs" />
+     <Compile Include="Assets\External\LeanTween\Examples\Scripts\GeneralCameraShake.cs" />
      <Compile Include="Assets\External\LeanTween\Framework\LTDescr.cs" />
+     <Compile Include="Assets\External\LeanTween\Editor\LeanTweenDocumentationEditor.cs" />
      <Compile Include="Assets\External\LeanTween\Framework\LeanTweenExt.cs" />
      <Compile Include="Assets\External\LeanTween\Examples\Scripts\TestingUnitTests.cs" />
+     <Compile Include="Assets\External\LeanTween\Examples\Archived\TestingPunch.cs" />
      <Compile Include="Assets\External\LeanTween\Framework\LTSeq.cs" />
      <Compile Include="Assets\External\LeanTween\Examples\Scripts\GeneralUISpace.cs" />
+     <Compile Include="Assets\External\LeanTween\Framework\LeanAudio.cs" />
      <Compile Include="Assets\External\LeanTween\Examples\Scripts\GeneralSimpleUI.cs" />
      <Compile Include="Assets\External\LeanTween\Examples\Scripts\PathSplineEndless.cs" />
      <Compile Include="Assets\External\LeanTween\Examples\Scripts\PathBezier.cs" />
+     <Compile Include="Assets\External\LeanTween\Examples\Scripts\PathSpline.cs" />
+     <Compile Include="Assets\External\LeanTween\Examples\Scripts\GeneralAdvancedTechniques.cs" />
+     <Compile Include="Assets\External\LeanTween\Framework\LeanSmooth.cs" />
+     <Compile Include="Assets\External\LeanTween\Examples\Scripts\GeneralBasics2d.cs" />
      <Compile Include="Assets\External\LeanTween\Examples\Scripts\PathSplines.cs" />
      <Compile Include="Assets\External\LeanTween\Examples\Scripts\GeneralEventsListeners.cs" />
+     <Compile Include="Assets\External\LeanTween\Examples\Scripts\PathSplineTrack.cs" />
+     <Compile Include="Assets\External\LeanTween\Framework\LeanTest.cs" />
      <Compile Include="Assets\External\LeanTween\Examples\Scripts\TestingZLegacy.cs" />
+     <Compile Include="Assets\External\LeanTween\Examples\Scripts\PathSpline2d.cs" />
      <Compile Include="Assets\External\LeanTween\Examples\Scripts\TestingZLegacyExt.cs" />
+     <Compile Include="Assets\External\LeanTween\Examples\Scripts\PathSplinePerformance.cs" />
      <Compile Include="Assets\External\LeanTween\Examples\Scripts\PathBezier2d.cs" />
      <Compile Include="Assets\External\LeanTween\Framework\LTDescrOptional.cs" />
      <Compile Include="Assets\External\LeanTween\Examples\Scripts\GeneralEasingTypes.cs" />
      <Compile Include="Assets\External\LeanTween\Examples\Scripts\GeneralSequencer.cs" />
      <Compile Include="Assets\External\LeanTween\Examples\Archived\OldGUIExamplesCS.cs" />
-     <Compile Include="Assets\External\LeanTween\Examples\Scripts\LogoCinematic.cs" />
-     <Compile Include="Assets\External\LeanTween\Examples\Scripts\GeneralCameraShake.cs" />
-     <Compile Include="Assets\External\LeanTween\Editor\LeanTweenDocumentationEditor.cs" />
-     <Compile Include="Assets\External\LeanTween\Examples\Archived\TestingPunch.cs" />
-     <Compile Include="Assets\External\LeanTween\Framework\LeanAudio.cs" />
-     <Compile Include="Assets\External\LeanTween\Examples\Scripts\PathSpline.cs" />
-     <Compile Include="Assets\External\LeanTween\Examples\Scripts\GeneralAdvancedTechniques.cs" />
-     <Compile Include="Assets\External\LeanTween\Framework\LeanSmooth.cs" />
-     <Compile Include="Assets\External\LeanTween\Examples\Scripts\GeneralBasics2d.cs" />
-     <Compile Include="Assets\External\LeanTween\Examples\Scripts\PathSplineTrack.cs" />
-     <Compile Include="Assets\External\LeanTween\Framework\LeanTest.cs" />
-     <Compile Include="Assets\External\LeanTween\Examples\Scripts\PathSpline2d.cs" />
-     <Compile Include="Assets\External\LeanTween\Examples\Scripts\PathSplinePerformance.cs" />
      <Compile Include="Assets\External\LeanTween\Examples\Scripts\GeneralBasic.cs" />
      <Compile Include="Assets\External\LeanTween\Examples\Archived\TestingRigidbodyCS.cs" />
      <Compile Include="Assets\External\LeanTween\Examples\Scripts\Following.cs" />
@@ -342,35 +342,14 @@
  <Reference Include="UnityEditor.UWP.Extensions">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.15f2/Editor/Data/PlaybackEngines/MetroSupport/UnityEditor.UWP.Extensions.dll</HintPath>
  </Reference>
- <Reference Include="Unity.Collections.LowLevel.ILSupport">
- <HintPath>C:/Users/friff/Unity/Crossworld/Library/PackageCache/com.unity.collections@1.1.0/Unity.Collections.LowLevel.ILSupport/Unity.Collections.LowLevel.ILSupport.dll</HintPath>
- </Reference>
  <Reference Include="Unity.Plastic.Antlr3.Runtime">
  <HintPath>C:/Users/friff/Unity/Crossworld/Library/PackageCache/com.unity.collab-proxy@1.7.1/Lib/Editor/PlasticSCM/Unity.Plastic.Antlr3.Runtime.dll</HintPath>
- </Reference>
- <Reference Include="Unity.Burst.Unsafe">
- <HintPath>C:/Users/friff/Unity/Crossworld/Library/PackageCache/com.unity.burst@1.5.4/Unity.Burst.Unsafe.dll</HintPath>
- </Reference>
- <Reference Include="Unity.Burst.Cecil.Mdb">
- <HintPath>C:/Users/friff/Unity/Crossworld/Library/PackageCache/com.unity.burst@1.5.4/Unity.Burst.CodeGen/Unity.Burst.Cecil.Mdb.dll</HintPath>
- </Reference>
- <Reference Include="Unity.Burst.Cecil.Pdb">
- <HintPath>C:/Users/friff/Unity/Crossworld/Library/PackageCache/com.unity.burst@1.5.4/Unity.Burst.CodeGen/Unity.Burst.Cecil.Pdb.dll</HintPath>
- </Reference>
- <Reference Include="Unity.Burst.Cecil">
- <HintPath>C:/Users/friff/Unity/Crossworld/Library/PackageCache/com.unity.burst@1.5.4/Unity.Burst.CodeGen/Unity.Burst.Cecil.dll</HintPath>
  </Reference>
  <Reference Include="log4netPlastic">
  <HintPath>C:/Users/friff/Unity/Crossworld/Library/PackageCache/com.unity.collab-proxy@1.7.1/Lib/Editor/PlasticSCM/log4netPlastic.dll</HintPath>
  </Reference>
- <Reference Include="Unity.Burst.Cecil.Rocks">
- <HintPath>C:/Users/friff/Unity/Crossworld/Library/PackageCache/com.unity.burst@1.5.4/Unity.Burst.CodeGen/Unity.Burst.Cecil.Rocks.dll</HintPath>
- </Reference>
  <Reference Include="Newtonsoft.Json">
  <HintPath>C:/Users/friff/Unity/Crossworld/Library/PackageCache/com.unity.nuget.newtonsoft-json@2.0.0/Runtime/Newtonsoft.Json.dll</HintPath>
- </Reference>
- <Reference Include="Mono.Cecil">
- <HintPath>C:/Users/friff/Unity/Crossworld/Library/PackageCache/com.unity.nuget.mono-cecil@1.10.1/Mono.Cecil.dll</HintPath>
  </Reference>
  <Reference Include="unityplastic">
  <HintPath>C:/Users/friff/Unity/Crossworld/Library/PackageCache/com.unity.collab-proxy@1.7.1/Lib/Editor/PlasticSCM/unityplastic.dll</HintPath>

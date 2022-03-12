@@ -6,7 +6,7 @@ namespace Xyz.MomsSpaghettiCode.CrossWorlds.GameViews.ScriptableObjects
      * For visual style of piece views.
      */
     [CreateAssetMenu(menuName = "Game Views/Piece View", fileName = "PieceView")]
-    public class PieceViewScriptableObject : ScriptableObject
+    public class PieceViewSettingsScriptableObject : ScriptableObject
     {
         // May add color, texture, etc here.
 

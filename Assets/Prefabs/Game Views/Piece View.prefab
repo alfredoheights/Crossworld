@@ -620,18 +620,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fallbackParent: {fileID: 0}
-  potentialParent: {fileID: 0}
   movingPiecePlaceholder: {fileID: 0}
   transitionDuration: 0.0625
   rectTransform: {fileID: 0}
   canvas: {fileID: 0}
-  piecePickupEventScriptableObject: {fileID: 11400000, guid: 4ab44fca052c8574c9c1cb223ec9caf7, type: 2}
+  pieceDragEventScriptableObject: {fileID: 11400000, guid: 4ab44fca052c8574c9c1cb223ec9caf7, type: 2}
   dragTimeoutDuration: 0.25
+  gameStateReferenceId: 0
   top: {fileID: 7866822744388016385}
   side: {fileID: 7866822745090833403}
   shadow: {fileID: 7866822745744822190}
   letter: {fileID: 7866822744764797344}
-  pieceViewScriptableObject: {fileID: 11400000, guid: f65e7a4f53e52404bbdd04015b7e16f8, type: 2}
+  points: {fileID: 447616754482060820}
+  pieceViewSettingsScriptableObject: {fileID: 11400000, guid: f65e7a4f53e52404bbdd04015b7e16f8, type: 2}
+  playerStateScriptableObject: {fileID: 11400000, guid: 1ac3e1ea68cfb16459c75f39aef5807b, type: 2}
 --- !u!225 &5484282354255765635
 CanvasGroup:
   m_ObjectHideFlags: 0

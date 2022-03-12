@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
+using Xyz.MomsSpaghettiCode.UI.Model;
 using Xyz.MomsSpaghettiCode.UI.ScriptableObjects;
+using Object = System.Object;
 
 namespace Xyz.MomsSpaghettiCode.UI
 {
@@ -17,8 +21,8 @@ namespace Xyz.MomsSpaghettiCode.UI
         IBeginDragHandler, IEndDragHandler
     {
         [SerializeField] private Transform fallbackParent;
-        [SerializeField] private Transform potentialParent;
         [SerializeField] private Transform movingPiecePlaceholder;
+        private Stack<Transform> _potentialParents;
 
         [FormerlySerializedAs("transitionInterval")]
         public float transitionDuration = .0625f;
@@ -28,13 +32,33 @@ namespace Xyz.MomsSpaghettiCode.UI
         [HideInInspector] public RectTransform rectTransform;
         [HideInInspector] public Canvas canvas;
 
-        [SerializeField] private PiecePickupEventScriptableObject piecePickupEventScriptableObject;
+        [FormerlySerializedAs("piecePickupEventScriptableObject")] [SerializeField]
+        private PieceDragEventScriptableObject pieceDragEventScriptableObject;
 
         // Timeout for selection without any movement, to prevent getting stuck
         public float dragTimeoutDuration = .75f;
         private DateTime? _lastDragEvent;
 
+        // Use this id to tell the game state about changes within events.
+        public int gameStateReferenceId;
+
         #region Unity Hooks
+
+        public void OnEnable()
+        {
+            // subscribe to events
+            pieceDragEventScriptableObject.parentEnqueueEvent.AddListener(EnqueueParent);
+            pieceDragEventScriptableObject.parentDequeueEvent.AddListener(DequeueParent);
+
+            pieceDragEventScriptableObject.pieceMoveEvent.AddListener(MovePiece);
+        }
+
+        public void OnDisable()
+        {
+            // unsubscribe from events
+            pieceDragEventScriptableObject.parentEnqueueEvent.RemoveListener(EnqueueParent);
+            pieceDragEventScriptableObject.parentDequeueEvent.RemoveListener(DequeueParent);
+        }
 
         public void Awake()
         {
@@ -43,6 +67,8 @@ namespace Xyz.MomsSpaghettiCode.UI
             rectTransform = (RectTransform) transform;
             canvas = transform.GetComponentInParent<Canvas>();
 
+            _potentialParents = new Stack<Transform>();
+
             _canvasGroup = GetComponent<CanvasGroup>();
             if (_canvasGroup == null)
             {
@@ -50,19 +76,9 @@ namespace Xyz.MomsSpaghettiCode.UI
             }
         }
 
-        public void Update()
-        {
-            if (_lastDragEvent is null) return;
-            TimeSpan timeSinceLastDragEvent = DateTime.Now - (DateTime) _lastDragEvent;
-            if (
-                (!Input.GetMouseButton(0) && Input.touchCount == 0) &&
-                timeSinceLastDragEvent > TimeSpan.FromSeconds(dragTimeoutDuration)
-            )
-            {
-                // ReSharper disable once Unity.PerformanceCriticalCodeInvocation
-                OnPointerUp(null);
-            }
-        }
+        // public void Update()
+        // {
+        // }
 
         #endregion
 
@@ -70,10 +86,10 @@ namespace Xyz.MomsSpaghettiCode.UI
 
         private void MoveToParent()
         {
-            if (!(potentialParent is null))
+            if (_potentialParents.Count > 0)
             {
-                transform.SetParent(potentialParent);
-                potentialParent = null;
+                transform.SetParent(_potentialParents.Pop());
+                _potentialParents.Clear();
                 fallbackParent = null;
             }
             else if (!(fallbackParent is null))
@@ -85,42 +101,48 @@ namespace Xyz.MomsSpaghettiCode.UI
             LeanTween.moveLocal(gameObject, Vector3.zero, transitionDuration);
         }
 
-        public void EnterTheFosterSystem(Transform placeholder)
+        public void UsePlaceholderParent(Transform placeholder)
         {
             fallbackParent = transform.parent;
             transform.SetParent(placeholder);
         }
 
-        public void BeAdopted(Transform newParent)
-        {
-            transform.SetParent(newParent, true);
-            MoveToParent();
-            fallbackParent = null;
-            potentialParent = null;
-        }
+        #region Piece Event listeners
 
-        public void MeetYourFosterParents(Transform newPotentialParent)
+        public void EnqueueParent(DraggablePiece piece, DroppableSpace newPotentialParent)
         {
+            if (!ReferenceEquals(piece, this)) return;
             // Used by the foster parent when dragged over
-            this.potentialParent = newPotentialParent;
+            this._potentialParents.Push(newPotentialParent.transform);
         }
 
-        public void AccidentallyKillYourFosterParentsDog()
+        public void DequeueParent(DraggablePiece piece, DroppableSpace parent)
         {
+            if (!ReferenceEquals(piece, this) ||
+                !ReferenceEquals(_potentialParents.Peek(), parent.transform))
+                return;
+
             // Used by the foster parent when dragged out
-            potentialParent = null;
+            _potentialParents.Pop();
+            if (_potentialParents.Count == 0)
+            {
+                _potentialParents.Push(fallbackParent);
+            }
         }
+
+        public void MovePiece(DraggablePiece piece, DroppableSpace space)
+        {
+            if (!ReferenceEquals(piece, this)) return;
+            MoveToParent();
+        }
+
+        #endregion
 
         public void CryOnTheOrphanageDoorstep()
         {
-            // Beg desperately for someone to take you in by looking at what's below you
-            if (potentialParent == null)
-            {
-                MoveToParent();
-                return;
-            }
-
-            BeAdopted(potentialParent);
+            // Currently just a public wrapper for MoveToParent, but we will want to have
+            // it here so that we can have extra logic there.
+            MoveToParent();
         }
 
         #endregion
@@ -134,11 +156,31 @@ namespace Xyz.MomsSpaghettiCode.UI
             rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
         }
 
+        private IEnumerator RevertIfHoldFailed()
+        {
+            yield return new WaitForSeconds(dragTimeoutDuration);
+            if (
+                Input.GetMouseButton(0) ||
+                Input.touchCount != 0 ||
+                _canvasGroup.blocksRaycasts
+            ) yield break;
+            OnPointerUp(null);
+        }
+
         public virtual void OnPointerDown(PointerEventData eventData)
         {
-            _lastDragEvent = System.DateTime.Now;
+            StartCoroutine(RevertIfHoldFailed());
+
             _canvasGroup.blocksRaycasts = false;
-            piecePickupEventScriptableObject.PickUpPiece(this);
+            pieceDragEventScriptableObject.PickUpPiece(this);
+
+            for (int i = eventData.hovered.Count - 1; i >= 0; i--)
+            {
+                GameObject hovered = eventData.hovered[i];
+                DroppableSpace droppableSpace = hovered.GetComponent<DroppableSpace>();
+                if (droppableSpace is null) continue;
+                _potentialParents.Push(hovered.transform);
+            }
 
             if (Camera.main is null) return;
 
@@ -152,7 +194,15 @@ namespace Xyz.MomsSpaghettiCode.UI
         {
             // After ending the drag, you can re-enable raycast
             _canvasGroup.blocksRaycasts = true;
-            piecePickupEventScriptableObject.DropPiece();
+            pieceDragEventScriptableObject.DropPiece();
+            if (_potentialParents.Count > 0)
+            {
+                Transform targetParent = _potentialParents.Peek();
+                DroppableSpace space = targetParent.gameObject.GetComponent<DroppableSpace>();
+                if (targetParent != null)
+                    pieceDragEventScriptableObject.pieceMoveEvent.Invoke(this, space);
+            }
+
             MoveToParent();
             _lastDragEvent = null;
         }

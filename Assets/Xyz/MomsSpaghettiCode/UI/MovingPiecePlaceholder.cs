@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Xyz.MomsSpaghettiCode.CrossWorlds.GameViews;
 using Xyz.MomsSpaghettiCode.UI.ScriptableObjects;
 
@@ -14,32 +15,24 @@ namespace Xyz.MomsSpaghettiCode.UI
          *
          * The events here alert when this adopts a piece.
          */
-        [SerializeField] private PiecePickupEventScriptableObject piecePickupEventScriptableObject;
+        [FormerlySerializedAs("piecePickupEventScriptableObject")] [SerializeField] private PieceDragEventScriptableObject pieceDragEventScriptableObject;
 
         private DraggablePiece _childPiece;
 
         public void OnEnable()
         {
-            piecePickupEventScriptableObject.piecePickupEvent.AddListener(FosterPiece);
-            piecePickupEventScriptableObject.pieceDropEvent.AddListener(TakePieceToTheOrphanage);
+            pieceDragEventScriptableObject.piecePickupEvent.AddListener(FosterPiece);
         }
 
         public void OnDisable()
         {
-            piecePickupEventScriptableObject.piecePickupEvent.RemoveListener(FosterPiece);
+            pieceDragEventScriptableObject.piecePickupEvent.RemoveListener(FosterPiece);
         }
 
         private void FosterPiece(DraggablePiece piece)
         {
-            piece.EnterTheFosterSystem(transform);
-            _childPiece = piece;
-        }
-
-        private void TakePieceToTheOrphanage(DraggablePiece piece)
-        {
-            if (piece is null) return;
-            piece.CryOnTheOrphanageDoorstep();
-            _childPiece = null;
+            // TODO: Can I make this an event too?
+            piece.UsePlaceholderParent(transform);
         }
     }
 }

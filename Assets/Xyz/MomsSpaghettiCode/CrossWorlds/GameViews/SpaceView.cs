@@ -8,13 +8,14 @@ namespace Xyz.MomsSpaghettiCode.CrossWorlds.GameViews
     {
         public Color highlightColor = Color.clear;
 
-        public new void OnPointerEnter(PointerEventData eventData)
+        public override void OnPointerEnter(PointerEventData eventData)
         {
             base.OnPointerEnter(eventData);
             highlightColor = Color.white;
             UpdateHighlightColor();
         }
-        public new void OnPointerExit(PointerEventData eventData)
+
+        public override void OnPointerExit(PointerEventData eventData)
         {
             base.OnPointerEnter(eventData);
             highlightColor = Color.clear;
@@ -27,11 +28,11 @@ namespace Xyz.MomsSpaghettiCode.CrossWorlds.GameViews
         }
 
 
-        private new void AnyPiecePickedUp(DraggablePiece piece)
+        /*
+        protected override void AnyPiecePickedUp(DraggablePiece piece)
         {
-            // todo: make sure this actually gets called, idk how OOP works
             base.AnyPiecePickedUp(piece);
-            Debug.Log("SpaceView: piece picked up");
         }
+        */
     }
 }
