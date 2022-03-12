@@ -61,26 +61,26 @@
      <Compile Include="Assets\Xyz\MomsSpaghettiCode\UI\Model\GameBoard.cs" />
      <Compile Include="Assets\Xyz\MomsSpaghettiCode\UI\DroppableSpace.cs" />
      <Compile Include="Assets\Xyz\MomsSpaghettiCode\CrossWorlds\GameViews\BoardView.cs" />
+     <Compile Include="Assets\Xyz\MomsSpaghettiCode\CrossWorlds\GameLogic\ScriptableObjects\MatchSettingsScriptableObject.cs" />
+     <Compile Include="Assets\Xyz\MomsSpaghettiCode\CrossWorlds\GameLogic\ScriptableObjects\MatchStateScriptableObject.cs" />
+     <Compile Include="Assets\Xyz\MomsSpaghettiCode\UI\ScriptableObjects\PieceDragEventScriptableObject.cs" />
      <Compile Include="Assets\Xyz\MomsSpaghettiCode\UI\DraggablePiece.cs" />
+     <Compile Include="Assets\Xyz\MomsSpaghettiCode\CrossWorlds\GameViews\HandSpaceView.cs" />
      <Compile Include="Assets\GameConnectionManager.cs" />
      <Compile Include="Assets\Xyz\MomsSpaghettiCode\CrossWorlds\GameViews\SpaceView.cs" />
      <Compile Include="Assets\Xyz\MomsSpaghettiCode\UI\Model\GameBag.cs" />
+     <Compile Include="Assets\Xyz\MomsSpaghettiCode\CrossWorlds\GameViews\HandSide.cs" />
+     <Compile Include="Assets\Xyz\MomsSpaghettiCode\CrossWorlds\GameViews\BoardSpaceView.cs" />
      <Compile Include="Assets\Xyz\MomsSpaghettiCode\CrossWorlds\GameViews\PieceView.cs" />
      <Compile Include="Assets\Xyz\MomsSpaghettiCode\UI\MenuButton.cs" />
+     <Compile Include="Assets\Xyz\MomsSpaghettiCode\CrossWorlds\GameLogic\ScriptableObjects\PieceDistributionScriptableObject.cs" />
+     <Compile Include="Assets\Xyz\MomsSpaghettiCode\CrossWorlds\GameLogic\ScriptableObjects\PlayerStateScriptableObject.cs" />
      <Compile Include="Assets\Xyz\MomsSpaghettiCode\UI\Popup.cs" />
      <Compile Include="Assets\Xyz\MomsSpaghettiCode\UI\ScriptableObjects\PopupScriptableObject.cs" />
      <Compile Include="Assets\Xyz\MomsSpaghettiCode\CrossWorlds\GameLogic\Network\SceneTransitionHandler.cs" />
      <Compile Include="Assets\Xyz\MomsSpaghettiCode\UI\Model\GameHand.cs" />
      <Compile Include="Assets\Xyz\MomsSpaghettiCode\UI\MovingPiecePlaceholder.cs" />
      <Compile Include="Assets\Xyz\MomsSpaghettiCode\CrossWorlds\GameLogic\PlayerConnectionManager.cs" />
-     <Compile Include="Assets\Xyz\MomsSpaghettiCode\CrossWorlds\GameLogic\ScriptableObjects\MatchStateScriptableObject.cs" />
-     <Compile Include="Assets\Xyz\MomsSpaghettiCode\UI\ScriptableObjects\PieceDragEventScriptableObject.cs" />
-     <Compile Include="Assets\Xyz\MomsSpaghettiCode\CrossWorlds\GameLogic\ScriptableObjects\PieceDistributionScriptableObject.cs" />
-     <Compile Include="Assets\Xyz\MomsSpaghettiCode\CrossWorlds\GameViews\HandSide.cs" />
-     <Compile Include="Assets\Xyz\MomsSpaghettiCode\CrossWorlds\GameViews\BoardSpaceView.cs" />
-     <Compile Include="Assets\Xyz\MomsSpaghettiCode\CrossWorlds\GameViews\HandSpaceView.cs" />
-     <Compile Include="Assets\Xyz\MomsSpaghettiCode\CrossWorlds\GameLogic\ScriptableObjects\PlayerStateScriptableObject.cs" />
-     <Compile Include="Assets\Xyz\MomsSpaghettiCode\CrossWorlds\GameLogic\ScriptableObjects\MatchSettingsScriptableObject.cs" />
  <Reference Include="UnityEngine">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.15f2/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
  </Reference>
