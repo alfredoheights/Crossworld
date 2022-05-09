@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3786500277322257323}
   - component: {fileID: 6861415252870487133}
-  - component: {fileID: 1893560541687039627}
   - component: {fileID: 921903539}
   - component: {fileID: 1012332304}
   - component: {fileID: 1012332303}
+  - component: {fileID: 6272373635030386143}
   m_Layer: 5
   m_Name: Hand Space View
   m_TagString: Untagged
@@ -60,21 +60,6 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &1893560541687039627
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4776458767506719447}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffbde8e1162540bca0b1a850c2f81d79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pieceDragEventScriptableObject: {fileID: 11400000, guid: 4ab44fca052c8574c9c1cb223ec9caf7, type: 2}
-  gameStateReferenceId: 0
-  highlightColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &921903539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,3 +110,19 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 1
+--- !u!114 &6272373635030386143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4776458767506719447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd1362ec57c041f6a07b3a01529baf80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pieceDragEventScriptableObject: {fileID: 11400000, guid: 4ab44fca052c8574c9c1cb223ec9caf7, type: 2}
+  gameStateReferenceId: 0
+  highlightColor: {r: 0, g: 0, b: 0, a: 0}
+  handSpaceFadeDuration: 0.0625

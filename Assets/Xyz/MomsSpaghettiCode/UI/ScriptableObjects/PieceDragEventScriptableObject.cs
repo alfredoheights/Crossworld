@@ -22,6 +22,7 @@ namespace Xyz.MomsSpaghettiCode.UI.ScriptableObjects
          * can update with it. This event can be invoked directly.
          */
         [System.NonSerialized] public UnityEvent<DraggablePiece, DroppableSpace> pieceMoveEvent;
+        [System.NonSerialized] public UnityEvent<DraggablePiece, DroppableSpace> pieceRemovedEvent;
 
         /*
          * When a piece is dragged over a space, enqueue that space as a drop target.
@@ -34,6 +35,7 @@ namespace Xyz.MomsSpaghettiCode.UI.ScriptableObjects
             piecePickupEvent ??= new UnityEvent<DraggablePiece>();
             pieceDropEvent ??= new UnityEvent<DraggablePiece>();
             pieceMoveEvent ??= new UnityEvent<DraggablePiece, DroppableSpace>();
+            pieceRemovedEvent ??= new UnityEvent<DraggablePiece, DroppableSpace>();
             parentEnqueueEvent ??= new UnityEvent<DraggablePiece, DroppableSpace>();
             parentDequeueEvent ??= new UnityEvent<DraggablePiece, DroppableSpace>();
         }

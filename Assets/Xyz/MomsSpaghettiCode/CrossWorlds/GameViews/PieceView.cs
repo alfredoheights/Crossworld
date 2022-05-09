@@ -20,6 +20,8 @@ namespace Xyz.MomsSpaghettiCode.CrossWorlds.GameViews
         public TextMeshProUGUI letter;
         public TextMeshProUGUI points;
 
+        public GamePiece gamePiece;
+
         [FormerlySerializedAs("pieceViewScriptableObject")]
         public PieceViewSettingsScriptableObject pieceViewSettingsScriptableObject;
 
@@ -132,18 +134,25 @@ namespace Xyz.MomsSpaghettiCode.CrossWorlds.GameViews
 
         #region Game Piece Interactions
 
-        public void ChangeLetter(string newLetter)
+        public void SetPiece(GamePiece newPiece)
+        {
+            ChangeLetter(newPiece.Letter.ToString());
+            ChangePointValue(newPiece.Points);
+            SetPieceId(newPiece.Id);
+            gamePiece = newPiece;
+        }
+        private void ChangeLetter(string newLetter)
         {
             letter.text = newLetter;
         }
 
-        public void ChangePointValue(int newPointValue)
+        private void ChangePointValue(int newPointValue)
         {
             if (!Constants.numberDots.ContainsKey(newPointValue)) return;
             points.text = Constants.numberDots[newPointValue];
         }
 
-        public void SetPieceId(int newPieceId)
+        private void SetPieceId(int newPieceId)
         {
             gameStateReferenceId = newPieceId;
         }

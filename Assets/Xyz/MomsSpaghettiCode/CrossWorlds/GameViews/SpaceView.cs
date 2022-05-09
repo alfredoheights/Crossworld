@@ -27,12 +27,5 @@ namespace Xyz.MomsSpaghettiCode.CrossWorlds.GameViews
             // Make the actual change that makes the highlight color happen
         }
 
-
-        /*
-        protected override void AnyPiecePickedUp(DraggablePiece piece)
-        {
-            base.AnyPiecePickedUp(piece);
-        }
-        */
     }
 }

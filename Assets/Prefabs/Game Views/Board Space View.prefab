@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5852461847094565457}
   - component: {fileID: 2453077349298913093}
   - component: {fileID: 6506542067806636250}
+  - component: {fileID: 2728233434035362064}
   - component: {fileID: 6477935854721225204}
   m_Layer: 5
   m_Name: Board Space View
@@ -85,13 +86,29 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5852461847094565463}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 274b60c308ee43ce8693a4d4120587f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  piecePickupEventScriptableObject: {fileID: 11400000, guid: 4ab44fca052c8574c9c1cb223ec9caf7, type: 2}
+  pieceDragEventScriptableObject: {fileID: 11400000, guid: 4ab44fca052c8574c9c1cb223ec9caf7, type: 2}
+  gameStateReferenceId: 0
 --- !u!114 &6506542067806636250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5852461847094565463}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffbde8e1162540bca0b1a850c2f81d79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pieceDragEventScriptableObject: {fileID: 11400000, guid: 4ab44fca052c8574c9c1cb223ec9caf7, type: 2}
+  gameStateReferenceId: 0
+  highlightColor: {r: 0, g: 0, b: 0, a: 0}
+--- !u!114 &2728233434035362064
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -100,11 +117,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 5852461847094565463}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffbde8e1162540bca0b1a850c2f81d79, type: 3}
+  m_Script: {fileID: 11500000, guid: f2a6704a37b04624a369e6625ceb210f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  piecePickupEventScriptableObject: {fileID: 11400000, guid: 4ab44fca052c8574c9c1cb223ec9caf7, type: 2}
+  pieceDragEventScriptableObject: {fileID: 11400000, guid: 4ab44fca052c8574c9c1cb223ec9caf7, type: 2}
+  gameStateReferenceId: 0
   highlightColor: {r: 0, g: 0, b: 0, a: 0}
+  playerStateScriptableObject: {fileID: 11400000, guid: 6059be071f1bb554ea1655fd800e813f, type: 2}
 --- !u!114 &6477935854721225204
 MonoBehaviour:
   m_ObjectHideFlags: 0

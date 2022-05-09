@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f0e5106aaf1409d8c7508001ea3cbf8, type: 3}
+  m_Script: {fileID: 11500000, guid: d2cc5f28b7334c69bc21fccd9c7a36e9, type: 3}
   m_Name: Hasborg
   m_EditorClassIdentifier: 
   pieces:
@@ -91,3 +91,4 @@ MonoBehaviour:
   - letter: 90
     points: 10
     count: 1
+

@@ -39,9 +39,7 @@ namespace Xyz.MomsSpaghettiCode.CrossWorlds.GameViews
                 GameObject handSpace = Instantiate(handSpacePrefab, handSpaceContainer);
                 GameObject pieceGO = Instantiate(pieceViewPrefab, handSpace.transform);
                 PieceView pieceView = pieceGO.GetComponent<PieceView>();
-                pieceView.SetPieceId(gamePiece.Id);
-                pieceView.ChangeLetter(gamePiece.Letter.ToString());
-                pieceView.ChangePointValue(gamePiece.Points);
+                pieceView.SetPiece(gamePiece);
             }
         }
 

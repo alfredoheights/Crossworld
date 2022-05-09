@@ -20,9 +20,9 @@ namespace Xyz.MomsSpaghettiCode.UI
     public class DraggablePiece /*<T>*/ : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler,
         IBeginDragHandler, IEndDragHandler
     {
-        [SerializeField] private Transform fallbackParent;
+        [SerializeField] private DroppableSpace fallbackParent;
         [SerializeField] private Transform movingPiecePlaceholder;
-        private Stack<Transform> _potentialParents;
+        private Stack<DroppableSpace> _potentialParents;
 
         [FormerlySerializedAs("transitionInterval")]
         public float transitionDuration = .0625f;
@@ -67,7 +67,7 @@ namespace Xyz.MomsSpaghettiCode.UI
             rectTransform = (RectTransform) transform;
             canvas = transform.GetComponentInParent<Canvas>();
 
-            _potentialParents = new Stack<Transform>();
+            _potentialParents = new Stack<DroppableSpace>();
 
             _canvasGroup = GetComponent<CanvasGroup>();
             if (_canvasGroup == null)
@@ -88,13 +88,13 @@ namespace Xyz.MomsSpaghettiCode.UI
         {
             if (_potentialParents.Count > 0)
             {
-                transform.SetParent(_potentialParents.Pop());
+                transform.SetParent(_potentialParents.Pop().transform);
                 _potentialParents.Clear();
                 fallbackParent = null;
             }
             else if (!(fallbackParent is null))
             {
-                transform.SetParent(fallbackParent);
+                transform.SetParent(fallbackParent.transform);
                 fallbackParent = null;
             }
 
@@ -103,7 +103,7 @@ namespace Xyz.MomsSpaghettiCode.UI
 
         public void UsePlaceholderParent(Transform placeholder)
         {
-            fallbackParent = transform.parent;
+            fallbackParent = transform.parent.GetComponent<DroppableSpace>();
             transform.SetParent(placeholder);
         }
 
@@ -113,13 +113,13 @@ namespace Xyz.MomsSpaghettiCode.UI
         {
             if (!ReferenceEquals(piece, this)) return;
             // Used by the foster parent when dragged over
-            this._potentialParents.Push(newPotentialParent.transform);
+            _potentialParents.Push(newPotentialParent);
         }
 
         public void DequeueParent(DraggablePiece piece, DroppableSpace parent)
         {
             if (!ReferenceEquals(piece, this) ||
-                !ReferenceEquals(_potentialParents.Peek(), parent.transform))
+                !ReferenceEquals(_potentialParents.Peek(), parent.GetComponent<DroppableSpace>()))
                 return;
 
             // Used by the foster parent when dragged out
@@ -177,9 +177,15 @@ namespace Xyz.MomsSpaghettiCode.UI
             for (int i = eventData.hovered.Count - 1; i >= 0; i--)
             {
                 GameObject hovered = eventData.hovered[i];
+                // How tf is hovered not found here?
+                if (!hovered)
+                {
+                    Debug.Log($"HEY IT SKIPPED ONE at index {i}");
+                    continue;
+                }
                 DroppableSpace droppableSpace = hovered.GetComponent<DroppableSpace>();
-                if (droppableSpace is null) continue;
-                _potentialParents.Push(hovered.transform);
+                // Hovered doesn't do what I thought it did!
+                _potentialParents.Push(droppableSpace);
             }
 
             if (Camera.main is null) return;
@@ -197,10 +203,17 @@ namespace Xyz.MomsSpaghettiCode.UI
             pieceDragEventScriptableObject.DropPiece();
             if (_potentialParents.Count > 0)
             {
-                Transform targetParent = _potentialParents.Peek();
-                DroppableSpace space = targetParent.gameObject.GetComponent<DroppableSpace>();
-                if (targetParent != null)
-                    pieceDragEventScriptableObject.pieceMoveEvent.Invoke(this, space);
+                DroppableSpace targetParent = _potentialParents.Peek();
+                if (targetParent is { } && targetParent.IsValidTarget(this))
+                {
+                    pieceDragEventScriptableObject.pieceRemovedEvent.Invoke(this, fallbackParent);
+                    pieceDragEventScriptableObject.pieceMoveEvent.Invoke(this, targetParent);
+                }
+                else
+                {
+                    _potentialParents.Clear();
+                    _potentialParents.Push(fallbackParent);
+                }
             }
 
             MoveToParent();

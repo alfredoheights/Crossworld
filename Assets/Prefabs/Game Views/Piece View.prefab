@@ -633,7 +633,7 @@ MonoBehaviour:
   letter: {fileID: 7866822744764797344}
   points: {fileID: 447616754482060820}
   pieceViewSettingsScriptableObject: {fileID: 11400000, guid: f65e7a4f53e52404bbdd04015b7e16f8, type: 2}
-  playerStateScriptableObject: {fileID: 11400000, guid: 1ac3e1ea68cfb16459c75f39aef5807b, type: 2}
+  playerStateScriptableObject: {fileID: 11400000, guid: 6059be071f1bb554ea1655fd800e813f, type: 2}
 --- !u!225 &5484282354255765635
 CanvasGroup:
   m_ObjectHideFlags: 0
